@@ -1,0 +1,139 @@
+<br>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <div class="container">
+            <div style="float: left;">
+                <h3>Student List</h3>
+            </div>
+            <div style="float: right;">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCenter">
+                    Add Mark
+                </button>
+            </div><br><br><br>
+            <ul class="list-group">
+                <li class="list-group-item" *ngFor="let data of datas">
+                    <div class="row">
+                        <div class="col-11  text-left">
+
+                            <h4>Student Name : {{data.studentName}}</h4>
+                            <p>Subject :  <code>{{data.studentSubject}} </code>  Marks: <b>{{data.studentMark}}</b></p>
+
+                        </div>
+                
+                        <i class="fas fa-edit" style="position: relative; right: 15px;" data-toggle="modal" data-target="#ModalEdit" (click)="edit(data)" ></i>   
+                        <i class="fas fa-trash"(click)="delete(data.id)"></i>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <div class="col-2"></div>
+</div>
+
+
+<div class="modal fade" id="ModalCenter" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle" style="margin-top: 11px;">Add Marks</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="StudentForm" (ngSubmit)="addMark()">
+                <div class="modal-body">
+                    <div class="form-group"
+                        [ngClass]="{'has-error':f.studentName.errors && (f.studentName.dirty || f.studentName.touched) }">
+                        <label for="">studentName<span class="badge">*</span></label>
+                        <input type="text" id="studentName" name="studentName" formControlName="studentName"
+                            class="form-control" />
+                        <span class="help-block"
+                            *ngIf="f.studentName.errors && (f.studentName.dirty || f.studentName.touched)">
+                            <span *ngIf="f.studentName.errors.required">studentName is required</span>
+                        </span>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="{'has-error':f.studentSubject.errors && (f.studentSubject.dirty || f.studentSubject.touched) }">
+                        <label for="studentSubject">studentSubject<span class="badge">*</span></label>
+                        <input type="text" id="studentSubject" name="studentSubject" formControlName="studentSubject"
+                            class="form-control" />
+                        <span class="help-block"
+                            *ngIf="f.studentSubject.errors && (f.studentSubject.dirty || f.studentSubject.touched)">
+                            <span *ngIf="f.studentSubject.errors.required">studentSubject is required</span>
+                        </span>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="{'has-error':f.studentMark.errors && (f.studentMark.dirty || f.studentMark.touched) }">
+                        <label for="studentMark">studentMark<span class="badge">*</span></label>
+                        <input type="number" id="studentMark" name="studentMark" formControlName="studentMark"
+                            class="form-control" />
+                        <span class="help-block"
+                            *ngIf="f.studentMark.errors && (f.studentMark.dirty || f.studentMark.touched)">
+                            <span *ngIf="f.studentMark.errors.required">studentMark is required</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" #closebutton class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="closeModal">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalEdit" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLongTitle" style="margin-top: 11px;">Edit Details</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="EditForm" (ngSubmit)="editMark()" >
+                <div class="modal-body">
+                    <div class="form-group"
+                        [ngClass]="{'has-error':func.studentName.errors && (func.studentName.dirty || func.studentName.touched) }">
+                        <label for="">studentName<span class="badge">*</span></label>
+                        <input type="text" id="studentName" name="studentName" value="this.data.studentName" formControlName="studentName"
+                            class="form-control" />
+                        <span class="help-block"
+                            *ngIf="func.studentName.errors && (func.studentName.dirty || func.studentName.touched)">
+                            <span *ngIf="func.studentName.errors.required">studentName is required</span>
+                        </span>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="{'has-error':func.studentSubject.errors && (func.studentSubject.dirty || func.studentSubject.touched) }">
+                        <label for="studentSubject">studentSubject<span class="badge">*</span></label>
+                        <input type="text" id="studentSubject" name="studentSubject" formControlName="studentSubject"
+                            class="form-control" />
+                        <span class="help-block"
+                            *ngIf="func.studentSubject.errors && (func.studentSubject.dirty || func.studentSubject.touched)">
+                            <span *ngIf="func.studentSubject.errors.required">studentSubject is required</span>
+                        </span>
+                    </div>
+                    <div class="form-group"
+                        [ngClass]="{'has-error':func.studentMark.errors && (func.studentMark.dirty || func.studentMark.touched) }">
+                        <label for="studentMark">studentMark<span class="badge">*</span></label>
+                        <input type="number" id="studentMark" name="studentMark" formControlName="studentMark"
+                            class="form-control" />
+                        <span class="help-block"
+                            *ngIf="func.studentMark.errors && (func.studentMark.dirty || func.studentMark.touched)">
+                            <span *ngIf="func.studentMark.errors.required">studentMark is required</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" #closebutton class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="closeModal" >submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

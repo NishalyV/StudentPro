@@ -1,0 +1,14 @@
+.fade{
+    opacity: 1;
+}
+
+.modal.fade .modal-dialog {
+    transform: translate(0);
+}
+.code {
+    font-family: Consolas,"courier new";
+    color: rgb(58, 218, 58);
+    background-color: #f1f1f1;
+    padding: 2px;
+    font-size: 105%;
+  }
